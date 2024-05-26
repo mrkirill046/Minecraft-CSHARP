@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Minecraft")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+99aede0996988a0a0535c92051943656160fdf65")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a29269ef30d9d2e26c92f979d056dfd289e65680")]
 [assembly: System.Reflection.AssemblyProductAttribute("Minecraft")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Minecraft")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
