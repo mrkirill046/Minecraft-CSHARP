@@ -2,6 +2,7 @@ using Minecraft.Tools;
 
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Windowing.Desktop;
 
 namespace Minecraft.Renderer;
@@ -27,6 +28,7 @@ internal class RenderWindow : GameWindow
     {
         base.OnLoad();
         Renderer.OnLoadWindow();
+        CursorState = CursorState.Grabbed;
     }
     
     protected override void OnUnload()
@@ -43,6 +45,9 @@ internal class RenderWindow : GameWindow
 
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
+        MouseState mouse = MouseState;
+        KeyboardState input = KeyboardState;
         base.OnUpdateFrame(args);
+        Variables.Camera.Update(input, mouse, args);
     }
 }

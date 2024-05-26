@@ -25,7 +25,7 @@ internal class Renderer
         int vbo = GL.GenBuffer();
         
         GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
-        GL.BufferData(BufferTarget.ArrayBuffer, Variables.Vertices.Count * Vector3.SizeInBytes, Variables.Vertices.ToArray(), BufferUsageHint.StaticDraw);
+        GL.BufferData(BufferTarget.ArrayBuffer, Constants.Vertices.Count * Vector3.SizeInBytes, Constants.Vertices.ToArray(), BufferUsageHint.StaticDraw);
         
         GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 0, 0);
         GL.EnableVertexAttribArray(0);
@@ -33,7 +33,7 @@ internal class Renderer
         
         Variables.TextureVbo = GL.GenBuffer();
         GL.BindBuffer(BufferTarget.ArrayBuffer, Variables.TextureVbo);
-        GL.BufferData(BufferTarget.ArrayBuffer, Variables.TexCoords.Count * Vector2.SizeInBytes, Variables.TexCoords.ToArray(), BufferUsageHint.StaticDraw);
+        GL.BufferData(BufferTarget.ArrayBuffer, Constants.TexCoords.Count * Vector2.SizeInBytes, Constants.TexCoords.ToArray(), BufferUsageHint.StaticDraw);
         
         GL.BindVertexArray(Variables.Vao);
         GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 0, 0);
@@ -44,13 +44,15 @@ internal class Renderer
 
         Variables.Ebo = GL.GenBuffer();
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, Variables.Ebo);
-        GL.BufferData(BufferTarget.ElementArrayBuffer, Variables.Indeces.Length * sizeof(uint), Variables.Indeces, BufferUsageHint.StaticDraw);
+        GL.BufferData(BufferTarget.ElementArrayBuffer, Constants.Indeces.Length * sizeof(uint), Constants.Indeces, BufferUsageHint.StaticDraw);
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
         
         Shader.LoadShader();
         Texture.LoadTexture();
         
         GL.Enable(EnableCap.DepthTest);
+
+        Variables.Camera = new Camera(Variables.ScreenWidth, Variables.ScreenHeight, Vector3.Zero);
     }
 
     public static void OnUnloadWindow()
@@ -72,8 +74,8 @@ internal class Renderer
         GL.BindTexture(TextureTarget.Texture2D, Variables.TextureId);
 
         Matrix4 model = Matrix4.Identity;
-        Matrix4 view = Matrix4.Identity;
-        Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(60.0f), Variables.ScreenWidth / Variables.ScreenHeight, 0.1f, 100.0f);
+        Matrix4 view = Variables.Camera.GetViewMatrix();
+        Matrix4 projection = Variables.Camera.GetProjectionMatrix();
 
         model = Matrix4.CreateRotationY(Variables.YRotation);
         Variables.YRotation += 0.001f;
@@ -88,7 +90,7 @@ internal class Renderer
         GL.UniformMatrix4(viewLocation, true, ref view);
         GL.UniformMatrix4(projectionLocation, true, ref projection);
         
-        GL.DrawElements(PrimitiveType.Triangles, Variables.Indeces.Length, DrawElementsType.UnsignedInt, 0);
+        GL.DrawElements(PrimitiveType.Triangles, Constants.Indeces.Length, DrawElementsType.UnsignedInt, 0);
         
         context.SwapBuffers();
     }

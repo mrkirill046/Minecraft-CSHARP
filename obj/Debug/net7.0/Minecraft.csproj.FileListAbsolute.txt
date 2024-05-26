@@ -30,3 +30,4 @@ C:\Users\Kirill\OneDrive\Документы\C#\3D Engine\obj\Debug\net7.0\Minecr
 C:\Users\Kirill\OneDrive\Документы\C#\3D Engine\obj\Debug\net7.0\Minecraft.genruntimeconfig.cache
 C:\Users\Kirill\OneDrive\Документы\C#\3D Engine\obj\Debug\net7.0\ref\Minecraft.dll
 C:\Users\Kirill\OneDrive\Документы\C#\3D Engine\bin\Debug\net7.0\StbImageSharp.dll
+C:\Users\Kirill\OneDrive\Документы\C#\3D Engine\obj\Debug\net7.0\Minecraft.sourcelink.json
